@@ -1,0 +1,90 @@
+using System;
+
+public class Account
+{
+    public int AccountNumber { get; }
+    public double Balance { get; private set; }
+    public string Type { get; }
+
+    // Default constructor for a checking account
+    public Account(int accountNumber)
+    {
+        AccountNumber = accountNumber;
+        Balance = 10000;
+        Type = "Checking";
+    }
+
+    // Constructor for specifying account type
+    public Account(int accountNumber, string type)
+    {
+        AccountNumber = accountNumber;
+        Balance = 10000;
+        Type = type;
+    }
+
+    // Constructor for specifying initial balance
+    public Account(int accountNumber, double initialBalance)
+    {
+        AccountNumber = accountNumber;
+        Balance = initialBalance;
+        Type = "Checking";
+    }
+
+    // Constructor for specifying account type and initial balance
+    public Account(int accountNumber, string type, double initialBalance)
+    {
+        AccountNumber = accountNumber;
+        Balance = initialBalance;
+        Type = type;
+    }
+
+    // Deposit method
+    public void Deposit(double amount)
+    {
+        if (amount <= 0)
+        {
+            Console.WriteLine("Invalid deposit amount.");
+            return;
+        }
+
+        Balance += amount;
+        Console.WriteLine($"Deposited {amount:C}. Current balance: {Balance:C}");
+    }
+
+    // Withdraw method
+    public void Withdraw(double amount)
+    {
+        if (amount <= 0)
+        {
+            Console.WriteLine("Invalid withdrawal amount.");
+            return;
+        }
+
+        if (Balance >= amount)
+        {
+            Balance -= amount;
+            Console.WriteLine($"Withdrawn {amount:C}. Current balance: {Balance:C}");
+        }
+        else
+        {
+            Console.WriteLine("Insufficient funds.");
+        }
+    }
+
+    public static void Main(string[] args)
+    {
+        // Create checking account with default balance
+        Account checkingAccount = new Account(123456789);
+
+        // Create savings account with initial balance
+        Account savingsAccount = new Account(987654321, "Savings", 30000);
+
+        // Deposit and withdraw from checking account
+        checkingAccount.Deposit(1000);
+        checkingAccount.Withdraw(750);
+
+        // Deposit and withdraw from savings account
+        savingsAccount.Deposit(15000);
+        savingsAccount.Withdraw(5500);
+    }
+}
